@@ -24,11 +24,30 @@
     layer.backgroundColor = [UIColor redColor].CGColor;
     self.layer = layer;
     [self.view.layer addSublayer:layer];
+    
+    
+    {
+        int i = 0;
+    
+        NSMutableArray *mArray = [NSMutableArray array];
+        [mArray addObject:@"a"];
+        NSLog(@"调用前：%zd -- %p -- %p", i, mArray, &mArray);
+        
+        
+        [self test:i mutArray:mArray];
+        NSLog(@"调用后：%zd -- %p -- %p", i, mArray, &mArray);
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+- (void)test:(int)i mutArray:(NSMutableArray *)mutArray {
+    i = 2;
+    [mutArray addObject:@"b"];
+    NSLog(@"调用中：%zd -- %p -- %p", i, mutArray, &mutArray);
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
