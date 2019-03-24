@@ -60,9 +60,9 @@
     
     
     
-    [self timerAnimationSample];
+//    [self timerAnimationSample];
     
-//    [self displayLinkAnimationSample];
+    [self displayLinkAnimationSample];
     
 //    [self chipmunkSample];
     
@@ -72,9 +72,9 @@
 - (void)animateClicked {
 //    [self timerAnimate];
     
-//    [self displayLinkAnimate];
+    [self displayLinkAnimate];
     
-    [self chipmunkAnimate];
+//    [self chipmunkAnimate];
 }
 
 #pragma mark - 定时帧
