@@ -225,15 +225,39 @@
     layer.backgroundColor = [UIColor blueColor].CGColor;
     [self.layerView.layer addSublayer:layer];
     
-    CASpringAnimation * animation = [CASpringAnimation animationWithKeyPath:@"bounds"];
-    animation.mass = 10.0; // 质量，影响图层运动时的弹簧惯性，质量越大，弹簧拉伸和压缩的幅度越大
-    animation.stiffness = 5000; // 刚度系数(劲度系数/弹性系数)，刚度系数越大，形变产生的力就越大，运动越快
-    animation.damping = 100.0;// 阻尼系数，阻止弹簧伸缩的系数，阻尼系数越大，停止越快
-    animation.initialVelocity = 5.f;// 初始速率，动画视图的初始速度大小;速率为正数时，速度方向与运动方向一致，速率为负数时，速度方向与运动方向相反
-    animation.duration = animation.settlingDuration; // settlingDuration：结算时间（根据动画参数估算弹簧开始运动到停止的时间，动画设置的时间最好根据此时间来设置）
-    animation.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 200, 200)];
-    animation.removedOnCompletion = NO;
-    animation.fillMode = kCAFillModeForwards;
+//    CASpringAnimation * animation = [CASpringAnimation animationWithKeyPath:@"bounds"];
+//    animation.mass = 10.0; // 质量，影响图层运动时的弹簧惯性，质量越大，弹簧拉伸和压缩的幅度越大
+//    animation.stiffness = 5000; // 刚度系数(劲度系数/弹性系数)，刚度系数越大，形变产生的力就越大，运动越快
+//    animation.damping = 100.0;// 阻尼系数，阻止弹簧伸缩的系数，阻尼系数越大，停止越快
+//    animation.initialVelocity = 5.f;// 初始速率，动画视图的初始速度大小;速率为正数时，速度方向与运动方向一致，速率为负数时，速度方向与运动方向相反
+//    animation.duration = animation.settlingDuration; // settlingDuration：结算时间（根据动画参数估算弹簧开始运动到停止的时间，动画设置的时间最好根据此时间来设置）
+//    animation.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 200, 200)];
+//    animation.removedOnCompletion = NO;
+//    animation.fillMode = kCAFillModeForwards;
+//    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    [layer addAnimation:animation forKey:nil];
+    
+    CASpringAnimation * animation = [CASpringAnimation animation];
+    {
+        // 写法1:
+//        animation.keyPath = @"transform";
+//        animation.valueFunction = [CAValueFunction functionWithName:kCAValueFunctionScale];
+//        animation.fromValue = @[@(0.5), @(0.5), @(0.5)];
+//        animation.toValue = @[@(1.0), @(1.0), @(1.0)];
+    }
+    
+    {
+        // 写法2:
+        animation.keyPath = @"transform.scale";
+        animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 0.5)];
+        animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)];
+    }
+    animation.mass = 10.0;
+    animation.stiffness = 5000;
+    animation.damping = 100.0;
+    animation.initialVelocity = 5.0;
+    animation.duration = animation.settlingDuration;
+//        animation.autoreverses = YES;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [layer addAnimation:animation forKey:nil];
 }
